@@ -18,7 +18,7 @@ async function doPost(e) {
         method: 'post',
         payload: JSON.stringify({
           replyToken: replyToken,
-          messages: [message],
+          messages: message,
         }),
       });
     }
@@ -50,19 +50,19 @@ async function eventHandle(event) {
 async function messagefunc(event) {
   try {
     const message = await chatGptRequest(event.message.text);
-    return { type: 'text', text: message };
+    return [{ type: 'text', text: message }];
   } catch (e) {
     console.log(e);
-    return { type: 'text', text: 'エラーが発生しました。' };
+    return [{ type: 'text', text: 'エラーが発生しました。' }];
   }
 }
 //ポストバックイベントの処理
 async function postbackFunc(event) {
-  return { type: 'text', text: event.postback.data };
+  return [{ type: 'text', text: event.postback.data }];
 }
 //友達登録時の処理
 async function followFunc(event) {
-  return { type: 'text', text: '友達登録ありがとうございます!!' };
+  return [{ type: 'text', text: '友達登録ありがとうございます!!' }];
 }
 //友達解除後の処理
 async function unfollowFunc() {

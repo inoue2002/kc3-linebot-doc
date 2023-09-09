@@ -15,7 +15,7 @@ async function doPost(e) {
         method: "post",
         payload: JSON.stringify({
           replyToken: replyToken,
-          messages: [message],
+          messages: message,
         }),
       });
     }
@@ -45,15 +45,15 @@ async function eventHandle(event) {
 }
 //メッセージイベントの処理
 async function messagefunc(event) {
-  return { type: "text", text: event.message.text };
+  return [{ type: "text", text: event.message.text }];
 }
 //ポストバックイベントの処理
 async function postbackFunc(event) {
-  return { type: "text", text: event.postback.data };
+  return [{ type: "text", text: event.postback.data }];
 }
 //友達登録時の処理
 async function followFunc(event) {
-  return { type: "text", text: "友達登録ありがとうございます!!" };
+  return [{ type: "text", text: "友達登録ありがとうございます!!" }];
 }
 //友達解除後の処理
 async function unfollowFunc() {
